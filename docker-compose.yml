@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:14
+    env_file:
+      - config.env
+#    environment:
+#      POSTGRES_USER: ${POSTGRES_USER}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf:ro
+    ports:
+      - "5432:5432"
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    env_file:
+      - config.env
+
+volumes:
+  pgdata:
