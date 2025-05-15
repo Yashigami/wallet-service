@@ -7,10 +7,10 @@ import (
 )
 
 type WalletService struct {
-	repo *repository.WalletRepo
+	repo repository.WalletRepository
 }
 
-func NewWalletService(repo *repository.WalletRepo) *WalletService {
+func NewWalletService(repo repository.WalletRepository) *WalletService {
 	return &WalletService{repo: repo}
 }
 
@@ -21,6 +21,7 @@ func (s *WalletService) ProcessOperation(walletID uuid.UUID, opType model.Operat
 		Amount:        amount,
 	})
 }
+
 func (s *WalletService) GetBalance(walletID uuid.UUID) (int64, error) {
 	return s.repo.GetBalance(walletID)
 }

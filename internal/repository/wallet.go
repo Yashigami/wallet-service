@@ -10,6 +10,11 @@ import (
 	"time"
 )
 
+type WalletRepository interface {
+	CreateOrUpdateWallet(op *model.WalletOperation) error
+	GetBalance(walletID uuid.UUID) (int64, error)
+}
+
 type WalletRepo struct {
 	db *gorm.DB
 }
