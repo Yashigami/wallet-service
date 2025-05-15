@@ -35,7 +35,7 @@ func init() {
 
 	serverEngine = gin.Default()
 
-	repoWallet = repository.NewWalletRepo(dbConnection)
+	repoWallet = repository.NewWalletRepository(dbConnection)
 	walletService = service.NewWalletService(repoWallet)
 
 	handler.NewWalletHandler(walletService, serverEngine)

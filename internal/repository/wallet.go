@@ -19,7 +19,7 @@ type WalletRepo struct {
 	db *gorm.DB
 }
 
-func NewWalletRepo(db *gorm.DB) *WalletRepo {
+func NewWalletRepository(db *gorm.DB) *WalletRepo {
 	return &WalletRepo{db: db}
 }
 

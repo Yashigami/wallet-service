@@ -22,3 +22,7 @@ type Wallet struct {
 	ID      uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primary_key"`
 	Balance int64     `gorm:"not null"`
 }
+
+func (Wallet) TableName() string {
+	return "wallets"
+}

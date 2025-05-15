@@ -32,13 +32,19 @@ func (h *WalletHandler) operate(c *gin.Context) {
 		return
 	}
 
-	err := h.service.ProcessOperation(req.WalletID, req.OperationType, req.Amount)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "err.Error()"})
-		return
+	op := &model.WalletOperation{
+		WalletID:      req.WalletID,
+		OperationType: req.OperationType,
+		Amount:        req.Amount,
 	}
 
-	c.Status(http.StatusOK)
+	err := h.service.ProcessOperation(op)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"status": "operation successful"})
+
 }
 func (h *WalletHandler) getBalance(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
