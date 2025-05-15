@@ -14,12 +14,8 @@ func NewWalletService(repo repository.WalletRepository) *WalletService {
 	return &WalletService{repo: repo}
 }
 
-func (s *WalletService) ProcessOperation(walletID uuid.UUID, opType model.OperationType, amount int64) error {
-	return s.repo.CreateOrUpdateWallet(&model.WalletOperation{
-		WalletID:      walletID,
-		OperationType: opType,
-		Amount:        amount,
-	})
+func (s *WalletService) ProcessOperation(op *model.WalletOperation) error {
+	return s.repo.CreateOrUpdateWallet(op)
 }
 
 func (s *WalletService) GetBalance(walletID uuid.UUID) (int64, error) {
