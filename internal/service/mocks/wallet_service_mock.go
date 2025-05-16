@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
+// Заглушки для сервиса
 type WalletServiceMock struct {
 	mock.Mock
 }

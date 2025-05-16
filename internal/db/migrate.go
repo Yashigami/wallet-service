@@ -6,6 +6,7 @@ import (
 	"log"
 )
 
+// Migrate Выполнение миграций
 func Migrate(db *gorm.DB) {
 	if err := db.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";").Error; err != nil {
 		log.Fatalf("failed to enable uuid-ossp: %v", err)

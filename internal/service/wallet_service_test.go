@@ -13,7 +13,8 @@ var (
 	walletID = uuid.New()
 )
 
-func TestProcessOperation_Success(t *testing.T) {
+// Тестирование успешной операции пополнения
+func TestProcessOperation_DepositSuccess(t *testing.T) {
 	walletRepository := new(mocks.WalletRepositoryMock)
 	walletService := NewWalletService(walletRepository)
 
@@ -31,7 +32,8 @@ func TestProcessOperation_Success(t *testing.T) {
 	walletRepository.AssertExpectations(t)
 }
 
-func TestProcessOperation_Error(t *testing.T) {
+// Тестирование провальной операции списания
+func TestProcessOperation_WithdrawError(t *testing.T) {
 	walletRepository := new(mocks.WalletRepositoryMock)
 	walletService := NewWalletService(walletRepository)
 
@@ -49,6 +51,7 @@ func TestProcessOperation_Error(t *testing.T) {
 	walletRepository.AssertExpectations(t)
 }
 
+// Тестирование успешной операции получения кошелька
 func TestGetBalance_Success(t *testing.T) {
 	repo := new(mocks.WalletRepositoryMock)
 	svc := NewWalletService(repo)
@@ -62,6 +65,7 @@ func TestGetBalance_Success(t *testing.T) {
 	repo.AssertExpectations(t)
 }
 
+// Тестирование провальной операции получения кошелька
 func TestGetBalance_NotFound(t *testing.T) {
 	repo := new(mocks.WalletRepositoryMock)
 	svc := NewWalletService(repo)

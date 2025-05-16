@@ -22,12 +22,14 @@ var (
 )
 
 func main() {
+	// Запуск HTTP сервера
 	err := serverEngine.Run(":8080")
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
+// Инициализация БД, слушателей, репо, сервиса
 func init() {
 	cfg = config.Load()
 
@@ -41,11 +43,14 @@ func init() {
 	handler.NewWalletHandler(walletService, serverEngine)
 }
 
+// Инициализация подключения к базе данных
 func dbConn() *gorm.DB {
 	dbConn, err := gorm.Open(postgres.Open(cfg.DSN), &gorm.Config{})
 	var DB, _ = dbConn.DB()
 	for i := 0; i < 10; i++ {
+		// Проверка подключения к БД
 		if err := DB.Ping(); err == nil {
+			// Вызов миграций
 			db.Migrate(dbConn)
 			return dbConn
 		}

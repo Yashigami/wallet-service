@@ -7,6 +7,8 @@ import (
 	"github.com/google/uuid"
 )
 
+// Структуры используются при запуске
+
 type OperationType string
 
 const (

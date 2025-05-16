@@ -17,6 +17,7 @@ var (
 	walletID = uuid.New()
 )
 
+// Тестирование пополнения кошелька
 func TestWalletHandler_OperateDeposit(t *testing.T) {
 	router := gin.Default()
 	mockService := new(mocks.WalletServiceMock)
@@ -45,6 +46,7 @@ func TestWalletHandler_OperateDeposit(t *testing.T) {
 	mockService.AssertExpectations(t)
 }
 
+// Тестирование списания с кошелька
 func TestWalletHandler_OperateWithdraw(t *testing.T) {
 	router := gin.Default()
 	mockService := new(mocks.WalletServiceMock)
@@ -73,6 +75,7 @@ func TestWalletHandler_OperateWithdraw(t *testing.T) {
 	mockService.AssertExpectations(t)
 }
 
+// Тестирование баланса кошелька
 func TestWalletHandler_GetBalance(t *testing.T) {
 	router := gin.Default()
 	mockService := new(mocks.WalletServiceMock)

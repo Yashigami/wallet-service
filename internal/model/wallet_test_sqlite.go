@@ -1,6 +1,8 @@
 //go:build test
 // +build test
 
+// Структуры используются при тестировании
+
 package model
 
 import (

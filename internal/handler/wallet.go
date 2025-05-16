@@ -12,6 +12,7 @@ type WalletHandler struct {
 	service service.WalletService
 }
 
+// NewWalletHandler Инициализация слушателей
 func NewWalletHandler(s service.WalletService, serverEngine *gin.Engine) *WalletHandler {
 	var h = &WalletHandler{service: s}
 	serverEngine.POST("/api/v1/wallet", h.operate)
@@ -19,25 +20,29 @@ func NewWalletHandler(s service.WalletService, serverEngine *gin.Engine) *Wallet
 	return h
 }
 
+// OperationRequest Структура запроса для выполнения операций с кошельком
 type OperationRequest struct {
 	WalletID      uuid.UUID           `json:"walletId"`
 	OperationType model.OperationType `json:"operationType"`
 	Amount        int64               `json:"amount"`
 }
 
+// Обработка запроса для выполнения операций с кошельком
 func (h *WalletHandler) operate(c *gin.Context) {
 	var req OperationRequest
+	// Вызов бизнес-логики для выполнения операции
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid input"})
 		return
 	}
-
+	// Формирование бизнес-структуры
 	op := &model.WalletOperation{
 		WalletID:      req.WalletID,
 		OperationType: req.OperationType,
 		Amount:        req.Amount,
 	}
 
+	// Вызов бизнес-логики для выполнения операции
 	err := h.service.ProcessOperation(op)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -46,6 +51,8 @@ func (h *WalletHandler) operate(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "operation successful"})
 
 }
+
+// Обработка запроса на получение текущего баланса по кошельку
 func (h *WalletHandler) getBalance(c *gin.Context) {
 	id, err := uuid.Parse(c.Param("id"))
 	if err != nil {

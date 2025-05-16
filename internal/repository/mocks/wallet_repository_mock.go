@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
+// WalletRepositoryMock Заглушки для репозитория
 type WalletRepositoryMock struct {
 	mock.Mock
 }

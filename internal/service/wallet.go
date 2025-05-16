@@ -19,10 +19,12 @@ func NewWalletService(repo repository.WalletRepository) WalletService {
 	return &WalletServiceImpl{walletRepository: repo}
 }
 
+// ProcessOperation Выполнение операций с кошельком
 func (s *WalletServiceImpl) ProcessOperation(op *model.WalletOperation) error {
 	return s.walletRepository.CreateOrUpdateWallet(op)
 }
 
+// GetBalance Получить баланс кошелька
 func (s *WalletServiceImpl) GetBalance(walletID uuid.UUID) (int64, error) {
 	return s.walletRepository.GetBalance(walletID)
 }
