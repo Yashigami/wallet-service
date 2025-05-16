@@ -6,18 +6,23 @@ import (
 	"github.com/google/uuid"
 )
 
-type WalletService struct {
-	repo repository.WalletRepository
+type WalletService interface {
+	ProcessOperation(op *model.WalletOperation) error
+	GetBalance(id uuid.UUID) (int64, error)
 }
 
-func NewWalletService(repo repository.WalletRepository) *WalletService {
-	return &WalletService{repo: repo}
+type WalletServiceImpl struct {
+	walletRepository repository.WalletRepository
 }
 
-func (s *WalletService) ProcessOperation(op *model.WalletOperation) error {
-	return s.repo.CreateOrUpdateWallet(op)
+func NewWalletService(repo repository.WalletRepository) WalletService {
+	return &WalletServiceImpl{walletRepository: repo}
 }
 
-func (s *WalletService) GetBalance(walletID uuid.UUID) (int64, error) {
-	return s.repo.GetBalance(walletID)
+func (s *WalletServiceImpl) ProcessOperation(op *model.WalletOperation) error {
+	return s.walletRepository.CreateOrUpdateWallet(op)
+}
+
+func (s *WalletServiceImpl) GetBalance(walletID uuid.UUID) (int64, error) {
+	return s.walletRepository.GetBalance(walletID)
 }

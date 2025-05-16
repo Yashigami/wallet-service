@@ -17,7 +17,7 @@ var (
 	cfg           *config.Config
 	dbConnection  *gorm.DB
 	repoWallet    *repository.WalletRepo
-	walletService *service.WalletService
+	walletService service.WalletService
 	serverEngine  *gin.Engine
 )
 
@@ -53,8 +53,4 @@ func dbConn() *gorm.DB {
 		time.Sleep(2 * time.Second)
 	}
 	panic(err)
-	/*if err != nil {
-		panic(err)
-	}
-	panic(err)*/
 }

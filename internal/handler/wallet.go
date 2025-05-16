@@ -9,10 +9,10 @@ import (
 )
 
 type WalletHandler struct {
-	service *service.WalletService
+	service service.WalletService
 }
 
-func NewWalletHandler(s *service.WalletService, serverEngine *gin.Engine) *WalletHandler {
+func NewWalletHandler(s service.WalletService, serverEngine *gin.Engine) *WalletHandler {
 	var h = &WalletHandler{service: s}
 	serverEngine.POST("/api/v1/wallet", h.operate)
 	serverEngine.GET("/api/v1/wallets/:id", h.getBalance)

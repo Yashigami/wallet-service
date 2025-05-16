@@ -1,1 +1,3 @@
 # wallet-service
+
+run test go test -tags=test ./...
